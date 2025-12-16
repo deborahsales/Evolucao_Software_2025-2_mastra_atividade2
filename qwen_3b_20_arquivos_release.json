@@ -1,0 +1,658 @@
+{
+  "metadata": {
+    "project": "mastra-ai/mastra",
+    "analysis_date": "2025-12-16T20:32:55.553806",
+    "models": ["qwen_3b"],
+    "releases": [
+      "@mastra/client-js@0.17.1",
+      "@mastra/core@0.24.8",
+      "@mastra/dane@0.1.25"
+    ],
+    "environment": "Google Colab (Free Tier)",
+    "context_limit_chars": 3000
+  },
+  "results": {
+    "@mastra/client-js@0.17.1": {
+      "/content/mastra/packages/core/src/zod-to-json.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Unnecessary Export",
+              "category": "Dispensables",
+              "snippet": "export { zodToJsonSchema } from '@mastra/schema-compat/zod-to-json';",
+              "justification": "The export is not used in the code snippet provided.",
+              "impact": "Reduces the size of the bundle and improves loading times.",
+              "refactoring": "Remove the unnecessary export."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/index.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Export All",
+              "category": "Dispensables",
+              "snippet": "Exporting all modules using `export *`",
+              "justification": "This practice can lead to bloating the module and making it harder to understand which modules are being used.",
+              "impact": "Increased file size, potential for unused imports, and reduced maintainability.",
+              "refactoring": "Consider exporting only the necessary modules or using named exports."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/base.warning.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Class Without Fields",
+              "category": "Dispensables",
+              "snippet": "The `MastaBase` class does not have any fields or properties.",
+              "justification": "Classes without fields are typically used for utility purposes or to extend other classes. In this case, the class is extending `MastaBaseBase` and does not add any new functionality.",
+              "impact": "Reduces the cognitive load for developers who need to understand the class's purpose.",
+              "refactoring": "Consider removing the class if it is not needed."
+            },
+            {
+              "name": "Empty Constructor",
+              "category": "Dispensables",
+              "snippet": "The `MastaBase` constructor does not perform any operations.",
+              "justification": "Constructors that do not perform any operations can be removed to simplify the class.",
+              "impact": "Reduces the cognitive load for developers who need to understand the class's purpose.",
+              "refactoring": "Consider removing the constructor if it is not needed."
+            },
+            {
+              "name": "Static Method Without Logic",
+              "category": "Dispensables",
+              "snippet": "The `warn` method in the `MastaBase` class does not contain any logic.",
+              "justification": "Methods that do not contain any logic can be removed to simplify the class.",
+              "impact": "Reduces the cognitive load for developers who need to understand the class's purpose.",
+              "refactoring": "Consider removing the `warn` method if it is not needed."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/utils.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/base.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Long Method",
+              "category": "Change Preventers",
+              "snippet": "Método `__setLogger` e `__setTelemetry`",
+              "justification": "Os métodos `__setLogger` e `__setTelemetry` são muito longos e contêm muitas instruções. Isso dificulta a manutenção e torna difícil identificar onde ocorrem mudanças.",
+              "impact": "O aumento do tamanho dos métodos pode levar a erros de compreensão e dificultar a refatoração. Além disso, métodos longos podem tornar o código mais difícil de testar e entender.",
+              "refactoring": "Dividir esses métodos em métodos menores, cada um com uma única responsabilidade."
+            },
+            {
+              "name": "Feature Envy",
+              "category": "Object-Orientation Abusers",
+              "snippet": "Método `get experimental_telemetry`",
+              "justification": "O método `get experimental_telemetry` parece estar enviesado para o objeto `this.telemetry`, pois ele acessa propriedades e métodos diretamente do objeto. Isso pode indicar que a responsabilidade do objeto `this.telemetry` está sendo transferida para o objeto `MastaBase`, violando o princípio de encapsulamento.",
+              "impact": "O enviesamento de características pode tornar o código menos modular e mais difícil de manter. Além disso, métodos enviesados podem dificultar a reutilização e a teste do código.",
+              "refactoring": "Reorganizar o código para que o método `get experimental_telemetry` não dependa diretamente do objeto `this.telemetry`. Em vez disso, passar o objeto `this.telemetry` como um parâmetro para o método."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/types.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/constants.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/mock.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/index.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/base.warning.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Class Without Fields",
+              "category": "Dispensables",
+              "snippet": "The `MastaStorage` class does not have any fields.",
+              "justification": "Classes without fields are typically dispensable and can be removed to simplify the codebase.",
+              "impact": "Reduces complexity and improves maintainability by removing unnecessary code.",
+              "refactoring": "Remove the `MastaStorage` class."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/utils.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/index.warning.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/storageWithInit.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Proxy Pattern",
+              "category": "Object-Orientation Abusers",
+              "snippet": "proxy = new Proxy(storage, {...})",
+              "justification": "The use of a Proxy object to intercept and modify access to the storage object's properties. This pattern can lead to increased complexity and potential performance overhead.",
+              "impact": "Can make the code harder to understand and maintain, especially for those unfamiliar with Proxy objects. It may also introduce additional latency due to the need to wait for the `ensureInit` function to complete before executing any method calls.",
+              "refactoring": "Consider using a more straightforward approach to handle asynchronous initialization without relying on a Proxy object."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/base.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/index.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/legacy-evals/index.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Class with only one method",
+              "category": "Dispensables",
+              "snippet": "export class Derived extends Base { ... }",
+              "justification": "The Derived class contains only one method, which is not necessary and can be removed.",
+              "impact": "Reduces the complexity of the codebase, improves maintainability, and reduces the risk of introducing bugs.",
+              "refactoring": "Remove the Derived class and move its functionality to the Base class."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/legacy-evals/inmemory.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/legacy-evals/base.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Long Method",
+              "category": "Change Preventers",
+              "snippet": "LegacyEvalsStorage.getEvals",
+              "justification": "The method `getEvals` is too long and complex, with multiple parameters and a promise return type. This makes it difficult to understand and maintain.",
+              "impact": "It can lead to increased complexity in the codebase, making it harder to refactor and extend in the future.",
+              "refactoring": "Consider breaking down the method into smaller, more focused methods that handle specific parts of the logic."
+            },
+            {
+              "name": "Long Parameter List",
+              "category": "Change Preventers",
+              "snippet": "LegacyEvalsStorage.getEvals",
+              "justification": "The method `getEvals` has a long list of parameters, including optional ones like `agentName`, `type`, and pagination arguments. This can make the method difficult to read and understand.",
+              "impact": "It can lead to increased complexity in the codebase, making it harder to refactor and extend in the future.",
+              "refactoring": "Consider using an object or a class to encapsulate the parameters, making the method signature cleaner and easier to manage."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/observability/index.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/observability/inmemory.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      }
+    },
+    "@mastra/core@0.24.8": {
+      "/content/mastra/packages/core/src/zod-to-json.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Unnecessary Export",
+              "category": "Dispensables",
+              "snippet": "export { zodToJsonSchema } from '@mastra/schema-compat/zod-to-json';",
+              "justification": "The export is not used in the code snippet provided.",
+              "impact": "Reduces the size of the bundle and improves loading times.",
+              "refactoring": "Remove the unnecessary export."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/index.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Export All",
+              "category": "Dispensables",
+              "snippet": "Exporting all modules using `export *`",
+              "justification": "This practice can lead to bloating the module and making it harder to understand which modules are being used.",
+              "impact": "Increased file size, potential for unused imports, and reduced maintainability.",
+              "refactoring": "Consider exporting only the necessary modules or using named exports."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/base.warning.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Class Without Fields",
+              "category": "Dispensables",
+              "snippet": "The `MastaBase` class does not have any fields or properties.",
+              "justification": "Classes without fields are typically used for utility purposes or to extend other classes. In this case, the class is extending `MastaBaseBase` and does not add any new functionality.",
+              "impact": "Reduces the cognitive load for developers who need to understand the class's purpose.",
+              "refactoring": "Consider removing the class if it is not needed."
+            },
+            {
+              "name": "Empty Constructor",
+              "category": "Dispensables",
+              "snippet": "The `MastaBase` constructor does not perform any operations.",
+              "justification": "Constructors that do not perform any operations can be removed to simplify the class.",
+              "impact": "Reduces the cognitive load for developers who need to understand the class's purpose.",
+              "refactoring": "Consider removing the constructor if it is not needed."
+            },
+            {
+              "name": "Static Method Without Logic",
+              "category": "Dispensables",
+              "snippet": "The `warn` method in the `MastaBase` class does not contain any logic.",
+              "justification": "Methods that do not contain any logic can be removed to simplify the class.",
+              "impact": "Reduces the cognitive load for developers who need to understand the class's purpose.",
+              "refactoring": "Consider removing the `warn` method if it is not needed."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/utils.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/base.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Long Method",
+              "category": "Change Preventers",
+              "snippet": "Método `__setLogger` e `__setTelemetry`",
+              "justification": "Os métodos `__setLogger` e `__setTelemetry` são muito longos e contêm muitas instruções. Isso dificulta a manutenção e torna difícil identificar onde ocorrem mudanças.",
+              "impact": "O aumento do tamanho dos métodos pode levar a erros de compreensão e dificultar a refatoração. Além disso, métodos longos podem tornar o código mais difícil de testar e entender.",
+              "refactoring": "Dividir esses métodos em métodos menores, cada um com uma única responsabilidade."
+            },
+            {
+              "name": "Feature Envy",
+              "category": "Object-Orientation Abusers",
+              "snippet": "Método `get experimental_telemetry`",
+              "justification": "O método `get experimental_telemetry` parece estar enviesado para o objeto `this.telemetry`, pois ele acessa propriedades e métodos diretamente do objeto. Isso pode indicar que a responsabilidade do objeto `this.telemetry` está sendo transferida para o objeto `MastaBase`, violando o princípio de encapsulamento.",
+              "impact": "O enviesamento de características pode tornar o código menos modular e mais difícil de manter. Além disso, métodos enviesados podem dificultar a reutilização e a teste do código.",
+              "refactoring": "Reorganizar o código para que o método `get experimental_telemetry` não dependa diretamente do objeto `this.telemetry`. Em vez disso, passar o objeto `this.telemetry` como um parâmetro para o método."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/types.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/constants.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/mock.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/index.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/base.warning.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Class Without Fields",
+              "category": "Dispensables",
+              "snippet": "The `MastaStorage` class does not have any fields.",
+              "justification": "Classes without fields are typically dispensable and can be removed to simplify the codebase.",
+              "impact": "Reduces complexity and improves maintainability by removing unnecessary code.",
+              "refactoring": "Remove the `MastaStorage` class."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/utils.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/index.warning.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/storageWithInit.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Proxy Pattern",
+              "category": "Object-Orientation Abusers",
+              "snippet": "proxy = new Proxy(storage, {...})",
+              "justification": "The use of a Proxy object to intercept and modify access to the storage object's properties. This pattern can lead to increased complexity and potential performance overhead.",
+              "impact": "Can make the code harder to understand and maintain, especially for those unfamiliar with Proxy objects. It may also introduce additional latency due to the need to wait for the `ensureInit` function to complete before executing any method calls.",
+              "refactoring": "Consider using a more straightforward approach to handle asynchronous initialization without relying on a Proxy object."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/base.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/index.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/legacy-evals/index.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Class with only one method",
+              "category": "Dispensables",
+              "snippet": "export class Derived extends Base { ... }",
+              "justification": "The Derived class contains only one method, which is not necessary and can be removed.",
+              "impact": "Reduces the complexity of the codebase, improves maintainability, and reduces the risk of introducing bugs.",
+              "refactoring": "Remove the Derived class and move its functionality to the Base class."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/legacy-evals/inmemory.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/legacy-evals/base.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Long Method",
+              "category": "Change Preventers",
+              "snippet": "LegacyEvalsStorage.getEvals",
+              "justification": "The method `getEvals` is too long and complex, with multiple parameters and a promise return type. This makes it difficult to understand and maintain.",
+              "impact": "It can lead to increased complexity in the codebase, making it harder to refactor and extend in the future.",
+              "refactoring": "Consider breaking down the method into smaller, more focused methods that handle specific parts of the logic."
+            },
+            {
+              "name": "Long Parameter List",
+              "category": "Change Preventers",
+              "snippet": "LegacyEvalsStorage.getEvals",
+              "justification": "The method `getEvals` has a long list of parameters, including optional ones like `agentName`, `type`, and pagination arguments. This can make the method difficult to read and understand.",
+              "impact": "It can lead to increased complexity in the codebase, making it harder to refactor and extend in the future.",
+              "refactoring": "Consider using an object or a class to encapsulate the parameters, making the method signature cleaner and easier to manage."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/observability/index.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/observability/inmemory.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      }
+    },
+    "@mastra/dane@0.1.25": {
+      "/content/mastra/packages/core/src/zod-to-json.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Unnecessary Export",
+              "category": "Dispensables",
+              "snippet": "export { zodToJsonSchema } from '@mastra/schema-compat/zod-to-json';",
+              "justification": "The export is not used in the code snippet provided.",
+              "impact": "Reduces the size of the bundle and improves loading times.",
+              "refactoring": "Remove the unnecessary export."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/index.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Export All",
+              "category": "Dispensables",
+              "snippet": "Exporting all modules using `export *`",
+              "justification": "This practice can lead to bloating the module and making it harder to understand which modules are being used.",
+              "impact": "Increased file size, potential for unused imports, and reduced maintainability.",
+              "refactoring": "Consider exporting only the necessary modules or using named exports."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/base.warning.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Class Without Fields",
+              "category": "Dispensables",
+              "snippet": "The `MastaBase` class does not have any fields or properties.",
+              "justification": "Classes without fields are typically used for utility purposes or to extend other classes. In this case, the class is extending `MastaBaseBase` and does not add any new functionality.",
+              "impact": "Reduces the cognitive load for developers who need to understand the class's purpose.",
+              "refactoring": "Consider removing the class if it is not needed."
+            },
+            {
+              "name": "Empty Constructor",
+              "category": "Dispensables",
+              "snippet": "The `MastaBase` constructor does not perform any operations.",
+              "justification": "Constructors that do not perform any operations can be removed to simplify the class.",
+              "impact": "Reduces the cognitive load for developers who need to understand the class's purpose.",
+              "refactoring": "Consider removing the constructor if it is not needed."
+            },
+            {
+              "name": "Static Method Without Logic",
+              "category": "Dispensables",
+              "snippet": "The `warn` method in the `MastaBase` class does not contain any logic.",
+              "justification": "Methods that do not contain any logic can be removed to simplify the class.",
+              "impact": "Reduces the cognitive load for developers who need to understand the class's purpose.",
+              "refactoring": "Consider removing the `warn` method if it is not needed."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/utils.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/base.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Long Method",
+              "category": "Change Preventers",
+              "snippet": "Método `__setLogger` e `__setTelemetry`",
+              "justification": "Os métodos `__setLogger` e `__setTelemetry` são muito longos e contêm muitas instruções. Isso dificulta a manutenção e torna difícil identificar onde ocorrem mudanças.",
+              "impact": "O aumento do tamanho dos métodos pode levar a erros de compreensão e dificultar a refatoração. Além disso, métodos longos podem tornar o código mais difícil de testar e entender.",
+              "refactoring": "Dividir esses métodos em métodos menores, cada um com uma única responsabilidade."
+            },
+            {
+              "name": "Feature Envy",
+              "category": "Object-Orientation Abusers",
+              "snippet": "Método `get experimental_telemetry`",
+              "justification": "O método `get experimental_telemetry` parece estar enviesado para o objeto `this.telemetry`, pois ele acessa propriedades e métodos diretamente do objeto. Isso pode indicar que a responsabilidade do objeto `this.telemetry` está sendo transferida para o objeto `MastaBase`, violando o princípio de encapsulamento.",
+              "impact": "O enviesamento de características pode tornar o código menos modular e mais difícil de manter. Além disso, métodos enviesados podem dificultar a reutilização e a teste do código.",
+              "refactoring": "Reorganizar o código para que o método `get experimental_telemetry` não dependa diretamente do objeto `this.telemetry`. Em vez disso, passar o objeto `this.telemetry` como um parâmetro para o método."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/types.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/constants.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/mock.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/index.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/base.warning.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Class Without Fields",
+              "category": "Dispensables",
+              "snippet": "The `MastaStorage` class does not have any fields.",
+              "justification": "Classes without fields are typically dispensable and can be removed to simplify the codebase.",
+              "impact": "Reduces complexity and improves maintainability by removing unnecessary code.",
+              "refactoring": "Remove the `MastaStorage` class."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/utils.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/index.warning.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/storageWithInit.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Proxy Pattern",
+              "category": "Object-Orientation Abusers",
+              "snippet": "proxy = new Proxy(storage, {...})",
+              "justification": "The use of a Proxy object to intercept and modify access to the storage object's properties. This pattern can lead to increased complexity and potential performance overhead.",
+              "impact": "Can make the code harder to understand and maintain, especially for those unfamiliar with Proxy objects. It may also introduce additional latency due to the need to wait for the `ensureInit` function to complete before executing any method calls.",
+              "refactoring": "Consider using a more straightforward approach to handle asynchronous initialization without relying on a Proxy object."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/base.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/index.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/legacy-evals/index.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Class with only one method",
+              "category": "Dispensables",
+              "snippet": "export class Derived extends Base { ... }",
+              "justification": "The Derived class contains only one method, which is not necessary and can be removed.",
+              "impact": "Reduces the complexity of the codebase, improves maintainability, and reduces the risk of introducing bugs.",
+              "refactoring": "Remove the Derived class and move its functionality to the Base class."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/legacy-evals/inmemory.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/legacy-evals/base.ts": {
+        "qwen_3b": {
+          "code_smells": [
+            {
+              "name": "Long Method",
+              "category": "Change Preventers",
+              "snippet": "LegacyEvalsStorage.getEvals",
+              "justification": "The method `getEvals` is too long and complex, with multiple parameters and a promise return type. This makes it difficult to understand and maintain.",
+              "impact": "It can lead to increased complexity in the codebase, making it harder to refactor and extend in the future.",
+              "refactoring": "Consider breaking down the method into smaller, more focused methods that handle specific parts of the logic."
+            },
+            {
+              "name": "Long Parameter List",
+              "category": "Change Preventers",
+              "snippet": "LegacyEvalsStorage.getEvals",
+              "justification": "The method `getEvals` has a long list of parameters, including optional ones like `agentName`, `type`, and pagination arguments. This can make the method difficult to read and understand.",
+              "impact": "It can lead to increased complexity in the codebase, making it harder to refactor and extend in the future.",
+              "refactoring": "Consider using an object or a class to encapsulate the parameters, making the method signature cleaner and easier to manage."
+            }
+          ]
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/observability/index.ts": {
+        "qwen_3b": {
+          "code_smells": []
+        }
+      },
+      "/content/mastra/packages/core/src/storage/domains/observability/inmemory.ts": {
+        "qwen_3b": {
+          "code_smells": [],
+          "extraction_error": true
+        }
+      }
+    }
+  }
+}
