@@ -15,7 +15,7 @@
 
 Este repositório contém a **pipeline automatizada de análise de code smells** desenvolvida como parte de uma atividade acadêmica, utilizando **modelos de linguagem de grande porte (LLMs)** para identificar problemas de qualidade de código com base **exclusiva na taxonomia do Refactoring Guru**.
 
-A análise foi conduzida sobre o projeto **[mastra-ai/mastra](https://github.com/mastra-ai/mastra)**, considerando múltiplas releases do repositório e diferentes modelos de linguagem, com foco na **evolução da qualidade do software**.
+A análise foi conduzida sobre o projeto **[mastra-ai/mastra](https://github.com/mastra-ai/mastra)**, considerando três releases do repositório e diferentes modelos de linguagem, com foco na **evolução da qualidade do software**.
 
 ---
 
@@ -35,28 +35,31 @@ O objetivo desta atividade é:
 
 ## 🧠 Taxonomia de Code Smells
 
-A análise segue **estritamente** a taxonomia definida pelo portal **Refactoring Guru**, limitada às seguintes categorias:
+A análise é **estritamente baseada na taxonomia de code smells do Refactoring Guru**, amplamente reconhecida na literatura de Engenharia de Software.
 
-- **Bloaters**
-- **Object-Orientation Abusers**
-- **Change Preventers**
-- **Dispensables**
-- **Couplers**
+As categorias consideradas incluem, entre outras:
 
-⚠️ Não são utilizados sinônimos, categorias alternativas ou classificações externas.
+- Bloaters
+- Object-Orientation Abusers
+- Change Preventers
+- Dispensables
+- Couplers
+
+⚠️ **Não são considerados smells fora dessa taxonomia**, nem categorias criadas ou inferidas pelos modelos.
 
 ---
 
-## 🧪 Ambiente de Execução
+## 🤖 Modelos de Linguagem Utilizados
 
-A pipeline foi desenvolvida e executada no ambiente **Google Colab (Free Tier)**, escolhido por sua acessibilidade e facilidade de reprodução dos experimentos.
+Foram selecionados três LLMs disponibilizados na plataforma Hugging Face, com o objetivo de garantir diversidade de escala e comparar comportamentos analíticos:
 
-### Limitações consideradas:
-- Memória RAM limitada
-- Tempo máximo de execução da sessão
-- Possíveis desconexões inesperadas
+| Identificador | Modelo | Parâmetros | Finalidade Experimental |
+|--------------|--------|------------|--------------------------|
+| `qwen_small` | Qwen/Qwen2.5-Coder-3B-Instruct | 3B | Modelo leve, referência mínima |
+| `qwen_medium` | Qwen/Qwen2.5-Coder-7B-Instruct | 7B | Modelo intermediário |
+| `qwen_large` | Qwen/Qwen2.5-Coder-14B-Instruct | 14B | Modelo mais robusto |
 
-Essas restrições motivaram decisões de projeto voltadas à **execução incremental**, **persistência frequente dos resultados** e **processamento em lotes (batching)**.
+A escolha privilegia **modelos especializados em código**, com instruções ajustadas para tarefas de análise e explicação.
 
 ---
 
@@ -65,7 +68,7 @@ Essas restrições motivaram decisões de projeto voltadas à **execução incre
 O acesso aos modelos de linguagem é realizado por meio de autenticação na plataforma **Hugging Face**.
 
 Para garantir segurança:
-- O token de acesso é armazenado utilizando o recurso **Secrets do Google Colab**
+- O token de acesso é armazenado utilizando um arquivo .env
 - O token é referenciado apenas pela variável de ambiente `HF_TOKEN`
 - Nenhuma credencial sensível é versionada ou exposta no repositório
 
@@ -73,95 +76,25 @@ Para garantir segurança:
 
 ## ⚙️ Pipeline de Análise
 
-A pipeline foi implementada em Python e estruturada nas seguintes etapas:
+1. Extração incremental dos arquivos de código-fonte;
+2. Envio controlado de trechos de código aos LLMs;
+3. Solicitação explícita para identificação de code smells segundo o Refactoring Guru;
+4. Estruturação da resposta em formato JSON;
+5. Armazenamento dos resultados por modelo, arquivo e release.
 
-1. **Instalação dinâmica das dependências**
-2. **Autenticação no Hugging Face**
-3. **Clonagem do repositório do projeto analisado**
-4. **Seleção das releases (tags)**
-5. **Coleta dos arquivos-fonte relevantes**
-6. **Análise assistida por modelos de linguagem**
-7. **Persistência incremental dos resultados**
-8. **Consolidação final em arquivo JSON**
-
-Cada modelo é executado de forma **independente**, evitando carregamento simultâneo e reduzindo o consumo de memória.
+Cada modelo é executado **de forma independente**, permitindo comparações diretas entre suas saídas.
 
 ---
 
-## 📂 Seleção dos Arquivos Analisados
+### Execução Incremental e Checkpoints
 
-A análise é restrita aos arquivos:
+Devido às limitações computacionais do ambiente, a análise é realizada de forma incremental:
 
-- Localizados em diretórios `src`
-- Pertencentes aos packages selecionados do monorepo
-- Escritos em **JavaScript** e **TypeScript**
+- Processamento arquivo a arquivo;
+- Persistência de resultados parciais (checkpoints);
+- Possibilidade de retomada sem perda de dados.
 
-Arquivos de configuração, testes, documentação, exemplos e artefatos de build são **explicitamente excluídos**, a fim de reduzir ruído e focar na lógica central do sistema.
-
----
-
-## 🤖 Modelos de Linguagem Utilizados
-
-Os modelos são configurados e executados de forma modular. Exemplo de mapeamento:
-
-```python
-MODELS = {
-    "qwen_small": "Qwen/Qwen2.5-Coder-3B-Instruct",
-    "qwen": "Qwen/Qwen2.5-Coder-7B-Instruct",
-    "starcoder": "bigcode/starcoder2-7b"
-}
-```
----
-
-## 📤 Formato da Saída
-
-Os resultados são armazenados em arquivos JSON, organizados por:
-
-- Release do projeto
-- Arquivo analisado
-- Modelo de linguagem utilizado
-
-Cada entrada segue o formato:
-
-    
-    {
-    "code_smells": [
-        {
-        "name": "Nome do code smell",
-        "category": "Categoria Refactoring Guru",
-        "snippet": "Trecho de código ou localização",
-        "justification": "Justificativa técnica",
-        "impact": "Impactos potenciais",
-        "refactoring": "Sugestão de refatoração"
-        }
-    ]
-    }
-
-
-Caso nenhum code smell seja identificado:
-
-    
-    {
-    "code_smells": []
-    }
-    
----
-## ♻️ Execução Incremental e Reprodutibilidade
-
-Para garantir reprodutibilidade e tolerância a falhas:
-
-- Os resultados são salvos após o processamento de cada arquivo
-- A execução pode ser retomada a partir do último checkpoint
-- O arquivo incremental é posteriormente consolidado como saída final
-
-Essa abordagem evita retrabalho em caso de falhas ou interrupções do ambiente.
+Essa estratégia garante **robustez experimental e reprodutibilidade**.
 
 ---
-## 📘 Notebook Principal
 
-O experimento completo está documentado no notebook:
-
-
-📓 [`mastra_code_smell_analysis.ipynb`](./mastra_code_smell_analysis.ipynb)
-
-Este notebook contém todo o código necessário para reprodução do experimento, desde a preparação do ambiente até a geração do arquivo final de resultados.
