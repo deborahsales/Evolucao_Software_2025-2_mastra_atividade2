@@ -1,0 +1,4 @@
+venv/
+mastra/
+.ipynb_checkpoints/
+.env
