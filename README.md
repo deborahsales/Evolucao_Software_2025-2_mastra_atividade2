@@ -98,3 +98,6 @@ Essa estratégia garante **robustez experimental e reprodutibilidade**.
 
 ---
 
+## 📘 Documentação e Apresentação
+📄 **[Abrir tutorial.pdf](./Tutorial.pdf)**  
+🎥 **[Assistir vídeo explicativo](https://drive.google.com/file/d/1kXSKNRNi8SqEwAB2kTYX-Z8r6t7Zx1l2/view?usp=sharing)**
