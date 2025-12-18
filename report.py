@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-DATA_DIR = "."
+DATA_DIR = "./results"
 
 category_translation = {
     "Bloaters": "Inchaço de Código",
